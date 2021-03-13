@@ -48,7 +48,6 @@ async def on_message(message):
         return
     print(f'{message.author} sent message: {message.content}')
     if message.content in ('!hello','!newhere') or await isPrefixMatch(message.content,botConfig['linePrefixes']):
-        await message.channel.send('Hai!')
         for emoji in botConfig['helloEmojis']:
             await message.add_reaction(emoji)
 
