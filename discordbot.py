@@ -4,12 +4,13 @@ littenbot.py
 An example discord bot written to demonstrate how to add a reaction in response to specific commands/keywords from messages.
 
 """
-import discord
+
 import os
 try:
     import yaml
+    import discord
 except ModuleNotFoundError:
-    print('PyYAML not installed. Install PyYAML and then try again.')
+    print('PyYAML and/or discord.py not installed. Verify that both are installed and then try again.')
     exit()
 
 try:
