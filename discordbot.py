@@ -47,12 +47,12 @@ async def on_message(message):
     if message.author == client.user:
         return
     print(f'{message.author} sent message: {message.content}')
-    if message.content in ('!hello','!newhere') or await doStartLinesMatch(message.content,botConfig['linePrefixes']):
+    if message.content in ('!hello','!newhere') or await isPrefixMatch(message.content,botConfig['linePrefixes']):
         await message.channel.send('Hai!')
         for emoji in botConfig['helloEmojis']:
             await message.add_reaction(emoji)
 
-async def doStartLinesMatch(messageContent,linePrefixes):
+async def isPrefixMatch(messageContent,linePrefixes):
     for linePrefix in linePrefixes:
         if messageContent.lower().startswith(linePrefix):
             return True
