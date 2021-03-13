@@ -18,7 +18,7 @@ except IOError as loadFailureObject:
     if (loadFailureObject.args[0] == 2):
         print('config.yml does not exist. Rename config.yml.example to config.yml and then try again.')
     else:
-        print('Failed to load config.yml: {loadFailureObject}'.format(loadFailureObject))
+        print(f'Failed to load config.yml: {loadFailureObject}')
     exit()
 
 try:
