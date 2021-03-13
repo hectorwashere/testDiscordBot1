@@ -5,12 +5,34 @@ An example discord bot written to demonstrate how to add a reaction in response 
 
 """
 import discord
-import yaml
+import os
+try:
+    import yaml
+except ModuleNotFoundError:
+    print('PyYAML not installed. Install PyYAML and then try again.')
+    exit()
 
-botConfig=yaml.safe_load(open('config.yml','r'))
+try:
+    botConfig=yaml.safe_load(open('config.yml','r'))
+except IOError as loadFailureObject:
+    if (loadFailureObject.args[0] == 2):
+        print('config.yml does not exist. Rename config.yml.example to config.yml and then try again.')
+    else:
+        print('Failed to load config.yml: {loadFailureObject}'.format(loadFailureObject))
+    exit()
 
-helloEmojis='🍕🍓🍇🍏🍪'
-startLines=('hello','hi','hai','o hai','ohai',"i'm new",'new here','sup','good morning','good afternoon','good evening','👋')
+try:
+    if 'discordGuildID' not in botConfig:
+        botConfig['discordGuildID']=os.environ['DISCORDGUILDID']
+    if 'discordToken' not in botConfig:
+        botConfig['discordToken']=os.environ['DISCORDTOKEN']
+except KeyError:
+    print("discordGuildID and/or discordToken not defined in config.yml")
+    print("Tried to use environment variables DISCORDGUILDID and DISCORDTOKEN instead, but at least one of them is undefined.")
+    print("Exiting...")
+    exit()
+
+
 
 client=discord.Client()
 
@@ -25,14 +47,14 @@ async def on_message(message):
     if message.author == client.user:
         return
     print(f'{message.author} sent message: {message.content}')
-    if message.content in ('!hello','!newhere') or await doStartLinesMatch(message.content,startLines):
-        #await message.channel.send('Hai!')
-        for emoji in helloEmojis:
+    if message.content in ('!hello','!newhere') or await doStartLinesMatch(message.content,botConfig['linePrefixes']):
+        await message.channel.send('Hai!')
+        for emoji in botConfig['helloEmojis']:
             await message.add_reaction(emoji)
 
-async def doStartLinesMatch(messageContent,startLines):
-    for startLine in startLines:
-        if messageContent.lower().startswith(startLine):
+async def doStartLinesMatch(messageContent,linePrefixes):
+    for linePrefix in linePrefixes:
+        if messageContent.lower().startswith(linePrefix):
             return True
     return False
 
