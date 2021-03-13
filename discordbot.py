@@ -22,13 +22,11 @@ except IOError as loadFailureObject:
     exit()
 
 try:
-    if 'discordGuildID' not in botConfig:
-        botConfig['discordGuildID']=os.environ['DISCORDGUILDID']
     if 'discordToken' not in botConfig:
         botConfig['discordToken']=os.environ['DISCORDTOKEN']
 except KeyError:
-    print("discordGuildID and/or discordToken not defined in config.yml")
-    print("Tried to use environment variables DISCORDGUILDID and DISCORDTOKEN instead, but at least one of them is undefined.")
+    print("discordToken not defined in config.yml")
+    print("Tried to use environment variable DISCORDTOKEN instead, but it doesn't exist.")
     print("Exiting...")
     exit()
 
@@ -39,8 +37,8 @@ client=discord.Client()
 @client.event
 async def on_ready():
     print(f'Bot {client.user} connected ')
-    guild=discord.utils.find(lambda g: g.id == botConfig['discordGuildID'], client.guilds)
-    print(f'Guild set: {guild.name} (ID {guild.id})')
+    for guild in client.guilds:
+        print(f'Connected to Discord Server: {guild.name} (ID {guild.id})')
 
 @client.event
 async def on_message(message):
