@@ -10,7 +10,7 @@ import yaml
 botConfig=yaml.safe_load(open('config.yml','r'))
 
 helloEmojis='🍕🍓🍇🍏🍪'
-startLines=('hello','hi','hai','o hai','ohai',"i'm new",'new here','sup')
+startLines=('hello','hi','hai','o hai','ohai',"i'm new",'new here','sup','good morning','good afternoon','good evening','👋')
 
 client=discord.Client()
 
