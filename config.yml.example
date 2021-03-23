@@ -1,0 +1,29 @@
+#Uncomment the below line to set your discordToken. Alternatively, the environment variable DISCORDTOKEN may be used.
+#discordToken: Put your discord token here
+
+useMessagePrefixes: True
+#All message prefixes must be lowercase!
+messagePrefixes:
+  - 'hello'
+  #The variations of 'hi' were added to prevent messages where 'hi' is not the first word from getting emojis.
+  #What if the first word is Hilo?
+  - prefix: 'hi'
+    applyOnlyIfEntireMessage: True
+  - 'hi,'
+  - 'hi.'
+  - 'hi!'
+  - 'hai'
+  - 'o hai'
+  - 'ohai'
+  - "i'm new"
+  - 'new here'
+  - prefix: 'sup'
+    applyOnlyIfEntireMessage: True
+  - 'sup.'
+  - 'sup, '
+  - 'sup?'
+  - 'good morning'
+  - 'good afternoon'
+  - 'good evening'
+  - '👋'
+helloEmojis: '🍕🍓🍇🍏🍪'
