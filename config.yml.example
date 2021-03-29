@@ -7,6 +7,7 @@ messagePrefixes:
   - 'hello'
   #The variations of 'hi' were added to prevent messages where 'hi' is not the first word from getting emojis.
   #What if the first word is Hilo?
+  - 'hiya'
   - prefix: 'hi'
     applyOnlyIfEntireMessage: True
   - 'hi,'
